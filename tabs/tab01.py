@@ -28,7 +28,7 @@ class Tab01:
 
             if lista_escolha != '-':
 
-                string_path = rf"htmls\{str(lista_escolha)}.html"
+                string_path = rf"htmls/{str(lista_escolha)}.html"
                 file_html = os.path.abspath(string_path)
                 HtmlFile = open(file_html, 'r', encoding='utf-8')
                 source_code = HtmlFile.read()
