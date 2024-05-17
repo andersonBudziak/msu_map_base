@@ -6,7 +6,7 @@ import streamlit.components.v1 as components
 class Tab01:
 
     def __init__(self):
-        self.gdf = gpd.read_file(r'\data\farms_.geojson')
+        self.gdf = gpd.read_file(r'.\data\farms_.geojson')
         self.lista = list(self.gdf.index)
         self.lista.insert(0, '-')
 
@@ -24,7 +24,7 @@ class Tab01:
                 st.text('then select the desired polygon ID to view the area attributes.')
 
             if lista_escolha != '-':
-                HtmlFile = open(rf"\htmls\{str(lista_escolha)}.html", 'r', encoding='utf-8')
+                HtmlFile = open(rf".\htmls\{str(lista_escolha)}.html", 'r', encoding='utf-8')
                 source_code = HtmlFile.read()
                 components.html(source_code, height=600)
 
