@@ -1,3 +1,5 @@
+
+import os
 import streamlit as st
 import geopandas as gpd
 import leafmap.foliumap as leafmap
@@ -6,7 +8,8 @@ import streamlit.components.v1 as components
 class Tab01:
 
     def __init__(self):
-        self.gdf = gpd.read_file(r'.\data\farms_.geojson')
+        self.file_path = os.path.abspath('data/farms_.geojson')
+        self.gdf = gpd.read_file(self.file_path)
         self.lista = list(self.gdf.index)
         self.lista.insert(0, '-')
 
@@ -24,7 +27,10 @@ class Tab01:
                 st.text('then select the desired polygon ID to view the area attributes.')
 
             if lista_escolha != '-':
-                HtmlFile = open(rf".\htmls\{str(lista_escolha)}.html", 'r', encoding='utf-8')
+
+                string_path = rf"htmls\{str(lista_escolha)}.html"
+                file_html = os.path.abspath(string_path)
+                HtmlFile = open(file_html, 'r', encoding='utf-8')
                 source_code = HtmlFile.read()
                 components.html(source_code, height=600)
 
