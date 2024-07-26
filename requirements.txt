@@ -1,5 +1,9 @@
 streamlit
 geopandas
+pandas
 pydeck
 leafmap
+folium
 streamlit_folium
+plotly
+numpy
