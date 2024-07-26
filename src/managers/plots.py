@@ -73,11 +73,11 @@ class Plots():
             #End date analises
             end_date = '2023-12-30'
 
-            df_enviroents = pd.read_csv(rf"C:\Users\ander\OneDrive\Área de Trabalho\msu\map_base\base\polygon_{index_poligon}\data_base.csv")
+            df_enviroents = pd.read_csv(rf".\msu\map_base\base\polygon_{index_poligon}\data_base.csv")
 
-            phenology_df = pd.read_csv(rf"C:\Users\ander\OneDrive\Área de Trabalho\msu\map_base\base\polygon_{index_poligon}\phenology_df.csv")
+            phenology_df = pd.read_csv(rf".\msu\map_base\base\polygon_{index_poligon}\phenology_df.csv")
 
-            df_index = pd.read_csv(rf"C:\Users\ander\OneDrive\Área de Trabalho\msu\map_base\base\polygon_{index_poligon}\data_index.csv")
+            df_index = pd.read_csv(rf".\msu\map_base\base\polygon_{index_poligon}\data_index.csv")
 
             plotter = PhenologyPlotter(df_enviroents, phenology_df, df_index, 'ndvi_value')
             fig = plotter.plot_data()
