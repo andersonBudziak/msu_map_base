@@ -7,7 +7,7 @@ from tabs.tab03 import Tab03
 # Configurar o layout da página para tela cheia
 st.set_page_config(layout="wide")
 
-tab1, tab2, tab3 = st.tabs(["Farms MSU", "Metrics by Polygon", "Metrics explantion"])
+tab1, tab2, tab3 = st.tabs(["Mississippi Boundaries Farms", "Metrics by Polygon", "Metrics explantion"])
 
 tab01 = Tab01()
 tab02 = Tab02()
