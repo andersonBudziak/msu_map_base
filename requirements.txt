@@ -2,3 +2,4 @@ streamlit
 geopandas
 pydeck
 leafmap
+streamlit_folium
