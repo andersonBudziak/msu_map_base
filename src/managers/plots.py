@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -73,11 +74,13 @@ class Plots():
             #End date analises
             end_date = '2023-12-30'
 
-            df_enviroents = pd.read_csv(rf".\msu\map_base\base\polygon_{index_poligon}\data_base.csv")
 
-            phenology_df = pd.read_csv(rf".\msu\map_base\base\polygon_{index_poligon}\phenology_df.csv")
+            # Ajustando o caminho relativamente ao diretório de trabalho atual
+            df_enviroents = pd.read_csv(rf"base/polygon_{index_poligon}/data_base.csv")
 
-            df_index = pd.read_csv(rf".\msu\map_base\base\polygon_{index_poligon}\data_index.csv")
+            phenology_df = pd.read_csv(rf"base/polygon_{index_poligon}/phenology_df.csv")
+
+            df_index = pd.read_csv(rf"base/polygon_{index_poligon}/data_index.csv")
 
             plotter = PhenologyPlotter(df_enviroents, phenology_df, df_index, 'ndvi_value')
             fig = plotter.plot_data()
