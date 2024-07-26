@@ -3,9 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-
 from src.controllers.plotter_base import PhenologyPlotter
-
 
 class Plots():
         
@@ -15,21 +13,17 @@ class Plots():
 
     def plot_precipitation(self, df):
 
-
-        # Gráfico de barras para a precipitação diária
         fig = px.bar(df, x='date', y='mean_precipitation', title='Sum Daily Precipitation',
                     labels={'date': 'Date', 'mean_precipitation': 'Sum Precipitation (mm)'}, 
                     color_discrete_sequence=['#642834'])
 
         non_zero_df = df[df['cumulative_precipitation'] != 0]
 
-        # Adicionar o gráfico de linha para a precipitação acumulada usando um segundo eixo Y
         fig.add_trace(
             go.Scatter(x=non_zero_df['date'], y=non_zero_df['cumulative_precipitation'], mode='lines', name='Cumulative Precipitation', 
                     line=dict(color='#304D30'), yaxis='y2')
         )
 
-        # Atualizar o layout para adicionar um segundo eixo Y
         fig.update_layout(
             yaxis=dict(
                 title='Sum Precipitation (mm)',
@@ -68,14 +62,10 @@ class Plots():
 
     def process_polygon(self, index_poligon):
             
-            #Start date analises 
             start_date = '2023-01-01'
 
-            #End date analises
             end_date = '2023-12-30'
 
-
-            # Ajustando o caminho relativamente ao diretório de trabalho atual
             df_enviroents = pd.read_csv(rf"base/polygon_{index_poligon}/data_base.csv")
 
             phenology_df = pd.read_csv(rf"base/polygon_{index_poligon}/phenology_df.csv")
@@ -92,14 +82,4 @@ class Plots():
             fig_radiation = self.plot_radiation(df_enviroents)
 
             return fig_precipitation, fig_temperature, fig_radiation, fig, fig_2
-
-
-            #fig.show()
-            #fig_2.show()
-
-            #   Show the interactive plots
-            #fig_precipitation.show()
-            #fig_temperature.show()
-            #fig_radiation.show()
-
 
