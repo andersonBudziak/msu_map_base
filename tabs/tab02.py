@@ -1,7 +1,7 @@
 import streamlit as st
 import geopandas as gpd
 import pydeck as pdk
-import leafmap.foliumap as leafmap
+import leafmap.folium as leafmap
 import streamlit.components.v1 as components
 
 class Tab02:
