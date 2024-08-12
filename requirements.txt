@@ -7,4 +7,4 @@ folium
 streamlit_folium
 plotly
 numpy
-leafmap.foliumap
+leafmap
