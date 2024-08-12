@@ -30,24 +30,24 @@ class PhenologyPlotter:
         return table_df
 
     def plot_data(self):
-        """Create and display a Plotly graph with vegetation index and phenology data."""
+
         self.convert_dates()
         vos_start_date, vos_end_date = self.calculate_plot_range()
         table_df = self.prepare_table()
 
         fig = make_subplots(
-            rows=2, cols=1,
+            rows=1, cols=2,
             shared_xaxes=True,
-            vertical_spacing=0.1,
-            specs=[[{"type": "scatter"}], [{"type": "table"}]]
+            horizontal_spacing=0.1,
+            specs=[[{"type": "scatter"}, {"type": "table"}]]
         )
 
-        # Colors and other styling
+        # Cores e outros estilos
         base_color = '#642834'
         other_colors = ['#B19470', '#76453B', '#304D30', '#114232', '#F7F6BB', '#FF9800', '#90D26D']
         background_color = '#FFFFFF'
 
-        # Adding traces
+        # Adicionando traços
         fig.add_trace(go.Scatter(x=self.df_index['timestamps'], y=self.df_index[self.vegetation_index], mode='lines', name='Vegetation Index', line=dict(color=other_colors[3])), row=1, col=1)
         fig.add_trace(go.Scatter(x=self.df_index['timestamps'], y=self.df_index['savitzky_golay'], mode='lines', name='Savitzky-Golay', line=dict(color=base_color, dash='dash')), row=1, col=1)
 
@@ -58,14 +58,70 @@ class PhenologyPlotter:
 
         fig.add_trace(go.Table(
             header=dict(values=['<b>Date</b>', '<b>Values</b>', '<b>Phenologic Metrics</b>'], fill_color=base_color, align='center', font=dict(color='white', size=12)),
-            cells=dict(values=[table_df[col] for col in table_df.columns], fill_color=[['lightgrey', 'white']*len(self.phenology_df)], align='center', font=dict(color='darkslategray', size=11))
-        ), row=2, col=1)
+            cells=dict(values=[table_df[col] for col in table_df.columns], fill_color=[['lightgrey', 'white'] * len(self.phenology_df)], align='center', font=dict(color='darkslategray', size=11))
+        ), row=1, col=2)
+
+        fig.add_annotation(
+            text="vos_start: Valley of season, less value before POS",
+            xref="paper", yref="paper",
+            x=1, y=0.30, showarrow=False,
+            font=dict(size=12),
+            align="left"
+        )
+
+        fig.add_annotation(
+            text="vos_end: Valley of season, less value after",
+            xref="paper", yref="paper",
+            x=1, y=0.28, showarrow=False,
+            font=dict(size=12),
+            align="left"
+        )
+
+        fig.add_annotation(
+            text="pos: Peak of season",
+            xref="paper", yref="paper",
+            x=1, y=0.26, showarrow=False,
+            font=dict(size=12),
+            align="left"
+        )
+
+        fig.add_annotation(
+            text="sos_der: Start of season, derivatives",
+            xref="paper", yref="paper",
+            x=1, y=0.24, showarrow=False,
+            font=dict(size=12),
+            align="left"
+        )
+
+        fig.add_annotation(
+            text="eos_der: End of season, derived",
+            xref="paper", yref="paper",
+            x=1, y=0.22, showarrow=False,
+            font=dict(size=12),
+            align="left"
+        )
+
+        fig.add_annotation(
+            text="sos_abs: Start of season. Absolute value",
+            xref="paper", yref="paper",
+            x=1, y=0.20, showarrow=False,
+            font=dict(size=12),
+            align="center"
+        )
+
+        fig.add_annotation(
+            text="eos_abs: End of season. Absolute value",
+            xref="paper", yref="paper",
+            x=1, y=0.18, showarrow=False,
+            font=dict(size=12),
+            align="right"
+        )
 
         fig.add_trace(go.Scatter(x=list(self.df_index['date_image']), y=list(self.df_index[self.vegetation_index]), mode='markers', name='Base`s images', marker=dict(color='#642834', size=5)), row=1, col=1)
 
         fig.update_layout(
             height=800,
-            width=1000,
+            width=1200,
             title_text="GCERLab Phenologics Metrics and Expenses",
             xaxis_title="Date",
             yaxis_title="NDVI",
@@ -73,15 +129,13 @@ class PhenologyPlotter:
             plot_bgcolor=background_color,
             paper_bgcolor=background_color,
             legend=dict(
-            x=0.01,
-            y=0.99,
-            font=dict(size=10)
-        )
+                x=0.01,
+                y=0.99,
+                font=dict(size=10)
+            )
         )
 
         return fig
-    
-
 
     def plot_data_01(self):
         # Create figure with secondary y-axis
